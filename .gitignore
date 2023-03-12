@@ -1,0 +1,7 @@
+.direnv
+.envrc
+CHANGELOG.md.save*
+dist-newstyle
+flake.lock
+result
+*.json
