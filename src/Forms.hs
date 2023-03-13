@@ -94,7 +94,7 @@ jobFormIsValid = formState <&> (^. jobFormInfoValid)
 mkJobEntryForm :: JobFormInfo -> Form JobFormInfo e ResourceNames
 mkJobEntryForm =
     let label s w = padBottom (Pad 1) $
-                    vLimit 1 (hLimit 15 $ str s <+> fill ' ') <+> w
+                    vLimit 1 (hLimit 20 $ str s <+> fill ' ') <+> w
     in newForm [ label "Job Name" @@=
                    editTextField jobFormInfoJobName JobNameField (Just 1)
                , label "Business Value" @@=
@@ -103,7 +103,7 @@ mkJobEntryForm =
                , label "Time Criticality" @@=
                    editShowableField jobFormInfoTimeCriticality
                     TimeCriticalityField
-               , label "Risk Reduction/Opportunity Enablement" @@=
+               , label "RROE" @@=
                    editShowableField jobFormInfoRROE RROEField
                , label "Job Size" @@=
                    editShowableField jobFormInfoJobSize JobSizeField

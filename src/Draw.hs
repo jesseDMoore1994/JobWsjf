@@ -23,6 +23,7 @@ import Attrs (jobTablePanelItemAttrName)
 import Forms 
     ( FileFormInfo
     , fileFormIsVisible
+    , fileFormOperation
     , JobFormInfo
     , jobFormIsVisible
     )
@@ -38,7 +39,7 @@ import View
 drawFileFormInfo :: Form FileFormInfo e ResourceNames -> Widget ResourceNames
 drawFileFormInfo j =
   withBorderStyle unicodeBold $
-  borderWithLabel (str "Load a Job Table!") $
+  borderWithLabel (str $ (show $ fileFormOperation j) ++ " a Job Table!") $
   hCenter $ padAll 1 $ withAttr jobTablePanelItemAttrName $ 
   renderForm j
 

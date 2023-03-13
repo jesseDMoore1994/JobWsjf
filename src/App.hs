@@ -28,8 +28,8 @@ app =
         attrMap
           defAttr
           [ (jobTablePanelAttrName, fg red)
-          , (jobTablePanelItemAttrName, black `on` green)
-          , (L.listSelectedAttr, black `on` green)
-          , (L.listAttr, green `on` black)
+          , (jobTablePanelItemAttrName, red `on` black)
+          , (L.listSelectedAttr, black `on` red)
+          , (L.listAttr, red `on` black)
           ]
     }
