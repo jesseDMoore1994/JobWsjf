@@ -8,7 +8,7 @@ import Brick
   , neverShowCursor
   )
 import Brick.Widgets.List as L
-import Graphics.Vty (black, defAttr, green, red)
+import Graphics.Vty (black, defAttr, red)
 
 import Attrs (jobTablePanelAttrName, jobTablePanelItemAttrName)
 import Draw (draw)

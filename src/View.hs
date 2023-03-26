@@ -5,6 +5,7 @@ module View
     , currentFileForm
     , currentTable
     , defaultView
+    , viewWithTable
     , clearJobForm
     , createJobAndAddItToTable
     , loadJobTable
@@ -59,6 +60,14 @@ defaultView =
       , _currentFileForm = mkFileEntryForm defaultFileFormInfo
       }
 
+viewWithTable :: JobTable -> View
+viewWithTable t =
+    View
+      { _currentTable = t
+      , _currentJobForm = mkJobEntryForm defaultJobFormInfo
+      , _currentFileForm = mkFileEntryForm defaultFileFormInfo
+      }
+
 clearJobForm :: View -> View
 clearJobForm view = view & currentJobForm .~ mkJobEntryForm defaultJobFormInfo
 
@@ -96,4 +105,4 @@ setJobTableNameInView view = view & currentTable .~ newTable
 noFormsOpenInView :: View -> Bool
 noFormsOpenInView view = not $ 
     jobFormIsVisible (view ^. currentJobForm) 
-    && fileFormIsVisible (view ^. currentFileForm)
+    || fileFormIsVisible (view ^. currentFileForm)

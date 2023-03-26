@@ -27,7 +27,7 @@ data JobTable =
 defaultTable :: JobTable
 defaultTable =
     JobTable
-      { _name = JobTableName "Scratchpad"
+      { _name = JobTableName "scratchpad.json"
       , _jobs = [] :: [Job] 
       , _jobIdx = 0
       }
@@ -42,6 +42,9 @@ newtype JobTableName =
 instance Show JobTableName where
     show (JobTableName j) = show j 
 
+createJobTableName :: T.Text -> JobTableName
+createJobTableName = JobTableName
+
 instance FromJSON JobTableName
 instance ToJSON JobTableName
 
@@ -51,7 +54,7 @@ writeJobTable :: JobTable -> IO ()
 writeJobTable t = I.writeFile filename tableData
     where
       nameAsStr = filter (/= '"') $ show $ t ^. name
-      filename = nameAsStr ++ ".json"
+      filename = nameAsStr
       tableData = encodeToLazyText t
 
 readJobTable :: JobTableName -> IO (Maybe JobTable)
@@ -59,7 +62,7 @@ readJobTable t = readFile filename <&>
     decode . TLE.encodeUtf8 . TL.pack
     where
       nameAsStr = filter (/= '"') $ show t
-      filename = nameAsStr ++ ".json"
+      filename = nameAsStr
 
 addJobToJobTable :: JobTable -> Job -> JobTable
 addJobToJobTable t j =
@@ -105,3 +108,10 @@ moveSelectedJob t d =
 
 setJobTableName :: JobTable -> JobTableName -> JobTable
 setJobTableName j n = j & name .~ n
+
+showJobTable :: JobTable -> String
+showJobTable j = jobTable ++ jobList
+    where
+      jobTableName = j ^. name
+      jobTable = "Job Table: " ++ (show jobTableName) ++ "\n"
+      jobList = "Jobs: \n" ++ (unlines $ map (("    " ++) . show) (j ^. jobs))
